@@ -39,6 +39,8 @@ html {
 
 body {
   font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
   background: var(--deep);
   color: var(--cream);
   overflow-x: hidden;
@@ -310,10 +312,10 @@ body {
 
 .nav-link {
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--gold-pale);
   text-decoration: none;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   position: relative;
   padding: 0.3rem 0;
@@ -491,9 +493,9 @@ body {
 
 .hero-blessing {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--gold);
-  letter-spacing: 0.25em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
@@ -521,11 +523,11 @@ body {
 
 .hero-invite {
   font-family: var(--font-body);
-  font-size: 1.15rem;
-  font-weight: 300;
+  font-size: 1.25rem;
+  font-weight: 400;
   color: var(--gold-pale);
   font-style: italic;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   margin: 0.8rem 0;
 }
 
@@ -583,11 +585,11 @@ body {
 
 .date-label {
   font-family: var(--font-heading);
-  font-size: 0.85rem;
-  letter-spacing: 0.3em;
+  font-size: 0.95rem;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--gold-pale);
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .date-main {
@@ -599,18 +601,18 @@ body {
 
 .date-time {
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: var(--gold-pale);
-  font-weight: 300;
-  letter-spacing: 0.08em;
+  font-weight: 400;
+  letter-spacing: 0.06em;
 }
 
 .hero-venue {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--gold-pale);
-  letter-spacing: 0.1em;
-  opacity: 0.7;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
   margin-bottom: 2.5rem;
 }
 
@@ -891,9 +893,9 @@ body {
 
 .person-name {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   color: var(--cream);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
   font-weight: 600;
 }
 
@@ -913,9 +915,9 @@ body {
 
 .person-work {
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--gold-pale);
-  opacity: 0.7;
+  opacity: 0.85;
   margin-bottom: 1.2rem;
 }
 
@@ -933,17 +935,17 @@ body {
 
 .parents-names {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--cream);
-  line-height: 1.6;
+  line-height: 1.7;
   font-weight: 400;
 }
 
 .parents-place {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--gold-pale);
-  opacity: 0.5;
+  opacity: 0.7;
   margin-top: 0.3rem;
 }
 
@@ -1022,28 +1024,28 @@ body {
 
 .info-label {
   font-family: var(--font-heading);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   color: var(--gold);
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .info-value {
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: var(--cream);
   font-weight: 400;
 }
 
 .event-description {
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--gold-pale);
-  opacity: 0.6;
-  line-height: 1.7;
+  opacity: 0.75;
+  line-height: 1.8;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .event-highlights {
@@ -1080,7 +1082,7 @@ body {
 
 .highlight-card h4 {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--cream);
   margin-bottom: 0.5rem;
   letter-spacing: 0.05em;
@@ -1088,11 +1090,11 @@ body {
 
 .highlight-card p {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--gold-pale);
-  opacity: 0.5;
-  font-weight: 300;
-  line-height: 1.5;
+  opacity: 0.7;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -1156,9 +1158,9 @@ body {
 
 .venue-district {
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--gold-pale);
-  opacity: 0.5;
+  opacity: 0.7;
   margin-bottom: 1.5rem;
 }
 
@@ -1167,9 +1169,9 @@ body {
   align-items: center;
   gap: 0.6rem;
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   color: var(--gold);
   text-decoration: none;
   border: 1px solid rgba(200, 168, 78, 0.3);
@@ -1234,11 +1236,11 @@ body {
 
 .countdown-label {
   font-family: var(--font-heading);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--gold-pale);
-  opacity: 0.5;
+  opacity: 0.75;
   margin-top: 0.5rem;
 }
 
@@ -1283,11 +1285,11 @@ body {
 
 .form-group label {
   font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   color: var(--gold);
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 .form-group input,
@@ -1439,11 +1441,11 @@ body {
 
 .footer-message {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--gold-pale);
-  opacity: 0.4;
+  opacity: 0.65;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 1.5rem;
   position: relative;
 }
@@ -1459,9 +1461,9 @@ body {
 
 .footer-families p {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--gold-pale);
-  opacity: 0.35;
+  opacity: 0.55;
 }
 
 .footer-divider {
@@ -1523,7 +1525,7 @@ body {
   }
 
   .nav-link {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 
   .door-j, .door-m {
