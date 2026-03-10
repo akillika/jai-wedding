@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "wedding-site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/akils/Projects/jaimarriage", "-l", "3456", "--no-clipboard"],
+      "port": 3456
+    }
+  ]
+}
