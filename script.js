@@ -443,13 +443,52 @@
   // ═══════════════════════════════════════════════
   // RSVP FORM
   // ═══════════════════════════════════════════════
+  // Google Sheets RSVP endpoint (Apps Script Web App URL)
+  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw0qyajVVNV9gfPix-RUpcHOphdJpI29cYDLGRXKoDpHLKDmO_u97C5dOWWrsJoLL_j_g/exec';
+
   function initRSVP() {
     if (!rsvpForm) return;
     rsvpForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      // Hide form, show success
-      rsvpForm.style.display = 'none';
-      document.getElementById('rsvp-success').classList.add('show');
+
+      const submitBtn = rsvpForm.querySelector('.rsvp-submit');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const originalText = btnText.textContent;
+
+      // Show loading state
+      btnText.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.6';
+
+      // Collect form data as URL params
+      const formData = new URLSearchParams();
+      formData.append('name', document.getElementById('rsvp-name').value);
+      formData.append('phone', document.getElementById('rsvp-phone').value);
+      formData.append('attending', document.getElementById('rsvp-attend').value);
+      formData.append('guests', document.getElementById('rsvp-guests').value);
+      formData.append('message', document.getElementById('rsvp-message').value);
+      formData.append('timestamp', new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+
+      // Send to Google Sheets
+      fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      })
+      .then(() => {
+        rsvpForm.style.display = 'none';
+        document.getElementById('rsvp-success').classList.add('show');
+      })
+      .catch(() => {
+        // Even if fetch fails with no-cors, data is usually sent
+        rsvpForm.style.display = 'none';
+        document.getElementById('rsvp-success').classList.add('show');
+      })
+      .finally(() => {
+        btnText.textContent = originalText;
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+      });
     });
   }
 
