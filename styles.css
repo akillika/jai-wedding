@@ -1249,6 +1249,13 @@ body {
   letter-spacing: 0.03em;
 }
 
+.info-value sup {
+  font-size: 0.6em;
+  vertical-align: super;
+  text-transform: lowercase;
+  font-weight: 300;
+}
+
 .event-description {
   font-family: var(--font-body);
   font-size: 1.1rem;
@@ -1439,11 +1446,11 @@ body {
 }
 
 .countdown-number {
-  font-family: var(--font-display);
+  font-family: var(--font-data);
   font-size: clamp(2rem, 5vw, 3.5rem);
   color: var(--gold);
   line-height: 1;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 .countdown-label {
@@ -1681,6 +1688,26 @@ body {
 .footer-divider {
   color: var(--gold);
   opacity: 0.2;
+}
+
+.footer-credit {
+  font-family: var(--font-data);
+  font-size: 0.7rem;
+  color: var(--gold-pale);
+  opacity: 0.3;
+  margin-top: 2.5rem;
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.footer-credit a {
+  color: var(--gold-pale);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.footer-credit a:hover {
+  opacity: 1;
 }
 
 /* ═══════════════════════════════════════════════════

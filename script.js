@@ -6,6 +6,10 @@
 (function () {
   'use strict';
 
+  // ── Always start at top on reload ───────────
+  history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
   // ── TIMING CONSTANTS ──────────────────────────
   const PRELOADER_DURATION = 2800;
   const MANDALA_PULSE_DURATION = 1200;
