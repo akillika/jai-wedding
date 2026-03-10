@@ -6,7 +6,7 @@
   <title>Jaisurya & Meaga — Wedding Celebration</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,6 +16,7 @@
   <!-- ═══════════════════════════════════════════ -->
   <div id="preloader">
     <div class="preloader-content">
+      <div class="preloader-om">&#x0950;</div>
       <svg class="mandala-loader" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <!-- Outer ring -->
         <circle cx="100" cy="100" r="95" class="mandala-ring r1"/>
@@ -114,7 +115,15 @@
         <div class="door-handle"></div>
       </div>
     </div>
+    <div class="door-light-beam"></div>
   </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CINEMATIC OVERLAYS                           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="golden-burst"></div>
+  <div class="cinematic-vignette" id="cinematic-vignette"></div>
+  <canvas id="sparkles-canvas"></canvas>
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- FLOATING PETALS CANVAS                      -->
@@ -147,6 +156,7 @@
         <div class="diya diya-3"><div class="flame"></div></div>
         <div class="diya diya-4"><div class="flame"></div></div>
       </div>
+      <div class="hero-glow-ring" id="hero-glow-ring"></div>
       <div class="hero-content">
         <p class="hero-blessing reveal-up" data-delay="0">Sri Ayyanarappan Thunai</p>
         <div class="hero-ornament reveal-up" data-delay="1">
@@ -188,11 +198,31 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER ──────────────────────── -->
-    <div class="section-divider">
-      <svg viewBox="0 0 400 40" class="divider-svg">
-        <path d="M0 20 H150 Q160 20 165 15 Q170 5 180 5 L190 5 Q200 5 200 15 Q200 5 210 5 L220 5 Q230 5 235 15 Q240 20 250 20 H400" class="divider-line"/>
-        <circle cx="200" cy="20" r="6" class="divider-dot"/>
+    <!-- RANGOLI KOLAM DIVIDER 1 ────────────────── -->
+    <div class="rangoli-divider scroll-reveal">
+      <svg viewBox="0 0 300 120" class="rangoli-svg" xmlns="http://www.w3.org/2000/svg">
+        <!-- Central lotus kolam -->
+        <circle cx="150" cy="60" r="50" class="rangoli-path rp-1"/>
+        <circle cx="150" cy="60" r="35" class="rangoli-path rp-2"/>
+        <circle cx="150" cy="60" r="20" class="rangoli-path rp-3"/>
+        <!-- Lotus petals -->
+        <ellipse cx="150" cy="15" rx="8" ry="20" class="rangoli-path rp-4" transform="rotate(0 150 60)"/>
+        <ellipse cx="150" cy="15" rx="8" ry="20" class="rangoli-path rp-4" transform="rotate(45 150 60)"/>
+        <ellipse cx="150" cy="15" rx="8" ry="20" class="rangoli-path rp-4" transform="rotate(90 150 60)"/>
+        <ellipse cx="150" cy="15" rx="8" ry="20" class="rangoli-path rp-4" transform="rotate(135 150 60)"/>
+        <ellipse cx="150" cy="15" rx="8" ry="20" class="rangoli-path rp-4" transform="rotate(180 150 60)"/>
+        <ellipse cx="150" cy="15" rx="8" ry="20" class="rangoli-path rp-4" transform="rotate(225 150 60)"/>
+        <ellipse cx="150" cy="15" rx="8" ry="20" class="rangoli-path rp-4" transform="rotate(270 150 60)"/>
+        <ellipse cx="150" cy="15" rx="8" ry="20" class="rangoli-path rp-4" transform="rotate(315 150 60)"/>
+        <!-- Decorative dots -->
+        <circle cx="150" cy="60" r="5" class="rangoli-dot"/>
+        <circle cx="150" cy="8" r="3" class="rangoli-dot" transform="rotate(0 150 60)"/>
+        <circle cx="150" cy="8" r="3" class="rangoli-dot" transform="rotate(90 150 60)"/>
+        <circle cx="150" cy="8" r="3" class="rangoli-dot" transform="rotate(180 150 60)"/>
+        <circle cx="150" cy="8" r="3" class="rangoli-dot" transform="rotate(270 150 60)"/>
+        <!-- Extended lines -->
+        <line x1="10" y1="60" x2="90" y2="60" class="rangoli-line"/>
+        <line x1="210" y1="60" x2="290" y2="60" class="rangoli-line"/>
       </svg>
     </div>
 
@@ -249,11 +279,27 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER ──────────────────────── -->
-    <div class="section-divider">
-      <svg viewBox="0 0 400 40" class="divider-svg">
-        <path d="M0 20 H150 Q160 20 165 15 Q170 5 180 5 L190 5 Q200 5 200 15 Q200 5 210 5 L220 5 Q230 5 235 15 Q240 20 250 20 H400" class="divider-line"/>
-        <circle cx="200" cy="20" r="6" class="divider-dot"/>
+    <!-- RANGOLI KOLAM DIVIDER 2 ────────────────── -->
+    <div class="rangoli-divider scroll-reveal">
+      <svg viewBox="0 0 300 120" class="rangoli-svg" xmlns="http://www.w3.org/2000/svg">
+        <!-- Diamond kolam pattern -->
+        <path d="M150 10 L200 60 L150 110 L100 60 Z" class="rangoli-path rp-1"/>
+        <path d="M150 25 L185 60 L150 95 L115 60 Z" class="rangoli-path rp-2"/>
+        <path d="M150 40 L170 60 L150 80 L130 60 Z" class="rangoli-path rp-3"/>
+        <!-- Corner curls -->
+        <path d="M150 10 Q170 30 200 60" class="rangoli-path rp-4" fill="none"/>
+        <path d="M150 10 Q130 30 100 60" class="rangoli-path rp-4" fill="none"/>
+        <path d="M150 110 Q170 90 200 60" class="rangoli-path rp-4" fill="none"/>
+        <path d="M150 110 Q130 90 100 60" class="rangoli-path rp-4" fill="none"/>
+        <!-- Dots at corners -->
+        <circle cx="150" cy="10" r="3" class="rangoli-dot"/>
+        <circle cx="200" cy="60" r="3" class="rangoli-dot"/>
+        <circle cx="150" cy="110" r="3" class="rangoli-dot"/>
+        <circle cx="100" cy="60" r="3" class="rangoli-dot"/>
+        <circle cx="150" cy="60" r="4" class="rangoli-dot"/>
+        <!-- Side lines -->
+        <line x1="10" y1="60" x2="85" y2="60" class="rangoli-line"/>
+        <line x1="215" y1="60" x2="290" y2="60" class="rangoli-line"/>
       </svg>
     </div>
 
@@ -279,7 +325,7 @@
             <div class="event-info-grid">
               <div class="event-info-item">
                 <span class="info-label">Date</span>
-                <span class="info-value">01st May 2026, Friday</span>
+                <span class="info-value">01<sup>st</sup> May 2026, Friday</span>
               </div>
               <div class="event-info-item">
                 <span class="info-label">Time</span>
@@ -326,11 +372,24 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER ──────────────────────── -->
-    <div class="section-divider">
-      <svg viewBox="0 0 400 40" class="divider-svg">
-        <path d="M0 20 H150 Q160 20 165 15 Q170 5 180 5 L190 5 Q200 5 200 15 Q200 5 210 5 L220 5 Q230 5 235 15 Q240 20 250 20 H400" class="divider-line"/>
-        <circle cx="200" cy="20" r="6" class="divider-dot"/>
+    <!-- RANGOLI KOLAM DIVIDER 3 ────────────────── -->
+    <div class="rangoli-divider scroll-reveal">
+      <svg viewBox="0 0 300 120" class="rangoli-svg" xmlns="http://www.w3.org/2000/svg">
+        <!-- Star kolam -->
+        <path d="M150 10 L165 45 L200 45 L172 68 L182 105 L150 82 L118 105 L128 68 L100 45 L135 45 Z" class="rangoli-path rp-1"/>
+        <circle cx="150" cy="60" r="30" class="rangoli-path rp-2"/>
+        <circle cx="150" cy="60" r="15" class="rangoli-path rp-3"/>
+        <!-- Inner petals -->
+        <ellipse cx="150" cy="35" rx="5" ry="12" class="rangoli-path rp-4" transform="rotate(0 150 60)"/>
+        <ellipse cx="150" cy="35" rx="5" ry="12" class="rangoli-path rp-4" transform="rotate(72 150 60)"/>
+        <ellipse cx="150" cy="35" rx="5" ry="12" class="rangoli-path rp-4" transform="rotate(144 150 60)"/>
+        <ellipse cx="150" cy="35" rx="5" ry="12" class="rangoli-path rp-4" transform="rotate(216 150 60)"/>
+        <ellipse cx="150" cy="35" rx="5" ry="12" class="rangoli-path rp-4" transform="rotate(288 150 60)"/>
+        <!-- Center -->
+        <circle cx="150" cy="60" r="5" class="rangoli-dot"/>
+        <!-- Side lines -->
+        <line x1="10" y1="60" x2="85" y2="60" class="rangoli-line"/>
+        <line x1="215" y1="60" x2="290" y2="60" class="rangoli-line"/>
       </svg>
     </div>
 
@@ -401,11 +460,31 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER ──────────────────────── -->
-    <div class="section-divider">
-      <svg viewBox="0 0 400 40" class="divider-svg">
-        <path d="M0 20 H150 Q160 20 165 15 Q170 5 180 5 L190 5 Q200 5 200 15 Q200 5 210 5 L220 5 Q230 5 235 15 Q240 20 250 20 H400" class="divider-line"/>
-        <circle cx="200" cy="20" r="6" class="divider-dot"/>
+    <!-- RANGOLI KOLAM DIVIDER 4 ────────────────── -->
+    <div class="rangoli-divider scroll-reveal">
+      <svg viewBox="0 0 300 120" class="rangoli-svg" xmlns="http://www.w3.org/2000/svg">
+        <!-- Peacock-inspired kolam -->
+        <circle cx="150" cy="60" r="45" class="rangoli-path rp-1"/>
+        <circle cx="150" cy="60" r="28" class="rangoli-path rp-2"/>
+        <!-- Feather arcs -->
+        <path d="M105 60 Q105 25 150 15" class="rangoli-path rp-3" fill="none"/>
+        <path d="M195 60 Q195 25 150 15" class="rangoli-path rp-3" fill="none"/>
+        <path d="M105 60 Q105 95 150 105" class="rangoli-path rp-4" fill="none"/>
+        <path d="M195 60 Q195 95 150 105" class="rangoli-path rp-4" fill="none"/>
+        <!-- Inner arcs -->
+        <path d="M122 60 Q122 38 150 30" class="rangoli-path rp-4" fill="none"/>
+        <path d="M178 60 Q178 38 150 30" class="rangoli-path rp-4" fill="none"/>
+        <path d="M122 60 Q122 82 150 90" class="rangoli-path rp-4" fill="none"/>
+        <path d="M178 60 Q178 82 150 90" class="rangoli-path rp-4" fill="none"/>
+        <!-- Dots -->
+        <circle cx="150" cy="60" r="5" class="rangoli-dot"/>
+        <circle cx="150" cy="15" r="3" class="rangoli-dot"/>
+        <circle cx="150" cy="105" r="3" class="rangoli-dot"/>
+        <circle cx="105" cy="60" r="3" class="rangoli-dot"/>
+        <circle cx="195" cy="60" r="3" class="rangoli-dot"/>
+        <!-- Side lines -->
+        <line x1="10" y1="60" x2="90" y2="60" class="rangoli-line"/>
+        <line x1="210" y1="60" x2="290" y2="60" class="rangoli-line"/>
       </svg>
     </div>
 
@@ -484,6 +563,21 @@
     </footer>
 
   </main>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BACKGROUND MUSIC                            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="shehnai.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-toggle" class="music-toggle" aria-label="Toggle music">
+    <svg class="music-icon-on" viewBox="0 0 24 24" width="22" height="22">
+      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor"/>
+    </svg>
+    <svg class="music-icon-off" viewBox="0 0 24 24" width="22" height="22">
+      <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" fill="currentColor"/>
+    </svg>
+  </button>
 
   <script src="script.js"></script>
 </body>

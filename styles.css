@@ -23,6 +23,7 @@
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Cormorant Garamond', serif;
   --font-script: 'Great Vibes', cursive;
+  --font-data: 'Lato', sans-serif;
 }
 
 /* ── Reset & Base ──────────────────────────────── */
@@ -128,6 +129,17 @@ body {
   margin-top: 2rem;
   opacity: 0;
   animation: fadeIn 1s ease forwards 1s;
+}
+
+/* Mandala glow pulse before doors open */
+.mandala-loader.pulse {
+  animation: mandalaPulse 1.5s ease infinite;
+  filter: drop-shadow(0 0 15px rgba(200, 168, 78, 0.6));
+}
+
+@keyframes mandalaPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(200, 168, 78, 0.4)); }
+  50% { transform: scale(1.06); filter: drop-shadow(0 0 25px rgba(200, 168, 78, 0.8)); }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -270,6 +282,80 @@ body {
 .door-ornament-top, .door-ornament-bottom {
   display: flex;
   justify-content: center;
+}
+
+/* Golden light beam between doors */
+.door-light-beam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 100%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 168, 78, 0.05) 20%,
+    rgba(232, 197, 71, 0.4) 40%,
+    rgba(255, 240, 180, 0.9) 50%,
+    rgba(232, 197, 71, 0.4) 60%,
+    rgba(200, 168, 78, 0.05) 80%,
+    transparent
+  );
+  z-index: 1;
+  opacity: 0;
+  transition: width 1.8s ease, opacity 0.6s ease;
+  pointer-events: none;
+}
+
+#temple-doors.beam-active .door-light-beam {
+  width: 120%;
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════
+   GOLDEN BURST FLASH
+   ═══════════════════════════════════════════════════ */
+#golden-burst {
+  position: fixed;
+  inset: 0;
+  z-index: 8500;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 240, 180, 0.95) 0%,
+    rgba(232, 197, 71, 0.6) 30%,
+    rgba(200, 168, 78, 0.2) 60%,
+    transparent 80%
+  );
+}
+
+#golden-burst.flash {
+  animation: goldenFlash 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes goldenFlash {
+  0% { opacity: 0; transform: scale(0.5); }
+  15% { opacity: 1; transform: scale(1); }
+  40% { opacity: 0.7; transform: scale(1.1); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* ═══════════════════════════════════════════════════
+   SPARKLES CANVAS
+   ═══════════════════════════════════════════════════ */
+#sparkles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 8600;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#sparkles-canvas.active {
+  opacity: 1;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -593,23 +679,24 @@ body {
 }
 
 .date-main {
-  font-family: var(--font-display);
+  font-family: var(--font-data);
   font-size: clamp(1.3rem, 3vw, 1.8rem);
   color: var(--gold);
   letter-spacing: 0.15em;
+  font-weight: 300;
 }
 
 .date-time {
-  font-family: var(--font-body);
-  font-size: 1.15rem;
+  font-family: var(--font-data);
+  font-size: 0.95rem;
   color: var(--gold-pale);
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: 0.06em;
 }
 
 .hero-venue {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
   color: var(--gold-pale);
   letter-spacing: 0.08em;
   opacity: 0.85;
@@ -652,12 +739,135 @@ body {
 .reveal-up {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease, filter 1s ease;
 }
 
 .reveal-up.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Grand cinematic hero entrance — names scale in with blur */
+.groom-name.reveal-up,
+.bride-name.reveal-up {
+  transform: translateY(30px) scale(1.4);
+  filter: blur(12px);
+  transition: opacity 1.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+              filter 1.2s ease-out;
+}
+
+.groom-name.reveal-up.revealed,
+.bride-name.reveal-up.revealed {
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Ampersand dramatic entrance */
+.names-and.reveal-up {
+  transform: scale(0) rotate(-180deg);
+  transition: opacity 0.8s ease,
+              transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.names-and.reveal-up.revealed {
+  transform: scale(1) rotate(0deg);
+}
+
+/* Hero zoom-in effect on the whole section */
+#hero.cinematic-zoom {
+  animation: heroZoomIn 2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes heroZoomIn {
+  0% { transform: scale(0.92); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Vignette burn during door opening */
+.cinematic-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 8400;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(13, 2, 8, 0.6) 100%);
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.cinematic-vignette.active {
+  opacity: 1;
+}
+
+.cinematic-vignette.fade-out {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+/* Sacred OM symbol shimmer during preloader */
+.preloader-om {
+  font-size: 3rem;
+  color: var(--gold);
+  opacity: 0;
+  margin-bottom: 0.5rem;
+  animation: omReveal 2s ease forwards 0.3s;
+}
+
+@keyframes omReveal {
+  0% { opacity: 0; transform: scale(0.5); filter: blur(8px); }
+  50% { opacity: 1; transform: scale(1.1); filter: blur(0); }
+  100% { opacity: 0.7; transform: scale(1); filter: blur(0); }
+}
+
+/* Door shake before opening */
+#temple-doors.door-shake .door-left .door-panel,
+#temple-doors.door-shake .door-right .door-panel {
+  animation: doorShake 0.6s ease;
+}
+
+@keyframes doorShake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-2px); }
+  30% { transform: translateX(3px); }
+  45% { transform: translateX(-2px); }
+  60% { transform: translateX(1px); }
+  75% { transform: translateX(-1px); }
+}
+
+/* Door letters glow before opening */
+#temple-doors.door-glow-active .door-j,
+#temple-doors.door-glow-active .door-m {
+  text-shadow: 0 0 60px rgba(200, 168, 78, 0.8),
+               0 0 120px rgba(232, 197, 71, 0.4),
+               0 0 180px rgba(200, 168, 78, 0.2);
+  transition: text-shadow 1s ease;
+}
+
+/* Hero content glow ring */
+.hero-glow-ring {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  border: 2px solid rgba(200, 168, 78, 0.3);
+  box-shadow: 0 0 60px rgba(200, 168, 78, 0.15),
+              inset 0 0 60px rgba(200, 168, 78, 0.08);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+}
+
+.hero-glow-ring.expand {
+  animation: glowRingExpand 2.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes glowRingExpand {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  30% { opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -1032,10 +1242,11 @@ body {
 }
 
 .info-value {
-  font-family: var(--font-body);
-  font-size: 1.15rem;
+  font-family: var(--font-data);
+  font-size: 1rem;
   color: var(--cream);
   font-weight: 400;
+  letter-spacing: 0.03em;
 }
 
 .event-description {
@@ -1150,10 +1361,11 @@ body {
 }
 
 .venue-address {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
+  font-family: var(--font-data);
+  font-size: 0.95rem;
   color: var(--cream);
   margin-bottom: 0.3rem;
+  letter-spacing: 0.03em;
 }
 
 .venue-district {
@@ -1603,3 +1815,137 @@ body {
   right: -20px;
   animation-delay: 1.5s;
 }
+
+/* ═══════════════════════════════════════════════════
+   ANIMATED RANGOLI / KOLAM DIVIDERS
+   ═══════════════════════════════════════════════════ */
+.rangoli-divider {
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  background: var(--deep);
+}
+
+.rangoli-svg {
+  width: min(280px, 70vw);
+  height: auto;
+  overflow: visible;
+}
+
+.rangoli-path {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 0.8;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  opacity: 0.4;
+  transition: none;
+}
+
+.rangoli-dot {
+  fill: var(--gold);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.rangoli-line {
+  stroke: var(--gold);
+  stroke-width: 0.6;
+  opacity: 0;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: none;
+}
+
+/* When visible — animate the kolam drawing */
+.rangoli-divider.visible .rangoli-path.rp-1 {
+  animation: drawKolam 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards 0s;
+}
+
+.rangoli-divider.visible .rangoli-path.rp-2 {
+  animation: drawKolam 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards 0.3s;
+}
+
+.rangoli-divider.visible .rangoli-path.rp-3 {
+  animation: drawKolam 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards 0.6s;
+}
+
+.rangoli-divider.visible .rangoli-path.rp-4 {
+  animation: drawKolam 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards 0.9s;
+}
+
+.rangoli-divider.visible .rangoli-dot {
+  opacity: 0.5;
+  transition-delay: 1.2s;
+}
+
+.rangoli-divider.visible .rangoli-line {
+  animation: drawKolam 1s ease forwards 1s;
+  opacity: 0.3;
+}
+
+@keyframes drawKolam {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   MUSIC TOGGLE BUTTON
+   ═══════════════════════════════════════════════════ */
+.music-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 600;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 168, 78, 0.3);
+  background: rgba(13, 2, 8, 0.85);
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+.music-toggle.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.music-toggle:hover {
+  border-color: var(--gold);
+  background: rgba(107, 15, 26, 0.4);
+  box-shadow: 0 0 20px rgba(200, 168, 78, 0.2);
+}
+
+.music-toggle.playing {
+  animation: musicPulse 2s ease infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 168, 78, 0.2); }
+  50% { box-shadow: 0 0 0 8px rgba(200, 168, 78, 0); }
+}
+
+.music-icon-on,
+.music-icon-off {
+  position: absolute;
+  transition: opacity 0.3s ease;
+}
+
+/* Default: show off icon (muted) */
+.music-icon-on { opacity: 0; }
+.music-icon-off { opacity: 1; }
+
+/* When playing: show on icon */
+.music-toggle.playing .music-icon-on { opacity: 1; }
+.music-toggle.playing .music-icon-off { opacity: 0; }

@@ -8,50 +8,111 @@
 
   // ── TIMING CONSTANTS ──────────────────────────
   const PRELOADER_DURATION = 2800;
-  const DOORS_OPEN_DELAY = 400;
+  const MANDALA_PULSE_DURATION = 1200;
+  const DOOR_SHAKE_DURATION = 600;
+  const DOOR_GLOW_DURATION = 800;
+  const BEAM_DELAY = 200;
   const DOORS_ANIMATION_DURATION = 2200;
-  const CONTENT_REVEAL_DELAY = 800;
-  const HERO_STAGGER = 150;
+  const BURST_DELAY = 600;
+  const SPARKLE_DURATION = 3000;
+  const CONTENT_REVEAL_DELAY = 600;
+  const HERO_STAGGER = 200;
+  const GLOW_RING_DELAY = 400;
 
   // ── DOM REFERENCES ────────────────────────────
   const preloader = document.getElementById('preloader');
+  const mandalaLoader = document.querySelector('.mandala-loader');
   const templeDoors = document.getElementById('temple-doors');
+  const goldenBurst = document.getElementById('golden-burst');
+  const sparklesCanvas = document.getElementById('sparkles-canvas');
+  const vignette = document.getElementById('cinematic-vignette');
   const petalsCanvas = document.getElementById('petals-canvas');
   const mainNav = document.getElementById('main-nav');
   const mainContent = document.getElementById('main-content');
+  const heroSection = document.getElementById('hero');
+  const heroGlowRing = document.getElementById('hero-glow-ring');
   const rsvpForm = document.getElementById('rsvp-form');
 
   // ═══════════════════════════════════════════════
-  // OPENING SEQUENCE
+  // GRAND OPENING SEQUENCE — Cinematic Timeline
   // ═══════════════════════════════════════════════
   function startOpeningSequence() {
-    // Phase 1: Preloader finishes
+    let t = 0;
+
+    // ── Phase 1: Mandala draws itself (already via CSS) ──
+    // At the end of preloader, mandala pulses with energy
+    t = PRELOADER_DURATION - MANDALA_PULSE_DURATION;
+    setTimeout(() => {
+      mandalaLoader.classList.add('pulse');
+    }, t);
+
+    // ── Phase 2: Preloader fades out ──
+    t = PRELOADER_DURATION;
     setTimeout(() => {
       preloader.classList.add('hide');
 
-      // Phase 2: Temple doors open
+      // ── Phase 3: Door letters glow ──
       setTimeout(() => {
-        templeDoors.classList.add('opening');
+        templeDoors.classList.add('door-glow-active');
 
-        // Phase 3: Show content behind doors
+        // ── Phase 4: Doors shake (about to open!) ──
         setTimeout(() => {
-          mainContent.classList.add('visible');
-          petalsCanvas.classList.add('active');
-          initPetals();
+          templeDoors.classList.add('door-shake');
 
-          // Phase 4: Reveal hero elements with stagger
+          // ── Phase 5: Light beam appears between doors ──
           setTimeout(() => {
-            revealHeroElements();
-            mainNav.classList.add('visible');
+            templeDoors.classList.add('beam-active');
+            vignette.classList.add('active');
 
-            // Phase 5: Hide doors completely
+            // ── Phase 6: Doors swing open ──
             setTimeout(() => {
-              templeDoors.classList.add('hidden');
-            }, 1500);
-          }, CONTENT_REVEAL_DELAY);
-        }, DOORS_ANIMATION_DURATION - 400);
-      }, DOORS_OPEN_DELAY);
-    }, PRELOADER_DURATION);
+              templeDoors.classList.add('opening');
+
+              // ── Phase 7: Golden burst flash ──
+              setTimeout(() => {
+                goldenBurst.classList.add('flash');
+
+                // Start sparkles during burst
+                sparklesCanvas.classList.add('active');
+                initSparkles();
+              }, BURST_DELAY);
+
+              // ── Phase 8: Content appears behind doors ──
+              setTimeout(() => {
+                mainContent.classList.add('visible');
+                heroSection.classList.add('cinematic-zoom');
+                petalsCanvas.classList.add('active');
+                initPetals();
+
+                // ── Phase 9: Hero elements stagger in ──
+                setTimeout(() => {
+                  // Glow ring expands from center
+                  heroGlowRing.classList.add('expand');
+
+                  // Reveal hero text with dramatic stagger
+                  revealHeroElements();
+                  mainNav.classList.add('visible');
+
+                  // Fade vignette
+                  vignette.classList.remove('active');
+                  vignette.classList.add('fade-out');
+
+                  // ── Phase 10: Cleanup ──
+                  setTimeout(() => {
+                    templeDoors.classList.add('hidden');
+                    // Fade out sparkles gracefully
+                    sparklesCanvas.classList.remove('active');
+                    setTimeout(() => {
+                      sparklesRunning = false;
+                    }, 500);
+                  }, 2000);
+                }, CONTENT_REVEAL_DELAY);
+              }, DOORS_ANIMATION_DURATION - 600);
+            }, BEAM_DELAY + 300);
+          }, DOOR_SHAKE_DURATION);
+        }, DOOR_GLOW_DURATION);
+      }, 300);
+    }, t);
   }
 
   function revealHeroElements() {
@@ -62,6 +123,122 @@
         el.classList.add('revealed');
       }, delay);
     });
+  }
+
+  // ═══════════════════════════════════════════════
+  // SPARKLE PARTICLE SYSTEM — Opening burst
+  // ═══════════════════════════════════════════════
+  let sparklesRunning = false;
+  const sparkles = [];
+  let sCtx, sW, sH;
+
+  function initSparkles() {
+    sCtx = sparklesCanvas.getContext('2d');
+    sW = sparklesCanvas.width = window.innerWidth;
+    sH = sparklesCanvas.height = window.innerHeight;
+    sparklesRunning = true;
+
+    // Burst: spawn lots of sparkles from center
+    const cx = sW / 2;
+    const cy = sH / 2;
+    for (let i = 0; i < 80; i++) {
+      sparkles.push(createSparkle(cx, cy, true));
+    }
+
+    // Ambient sparkles from random positions
+    for (let i = 0; i < 40; i++) {
+      sparkles.push(createSparkle(Math.random() * sW, Math.random() * sH, false));
+    }
+
+    animateSparkles();
+  }
+
+  function createSparkle(x, y, isBurst) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = isBurst ? (2 + Math.random() * 6) : (0.2 + Math.random() * 0.8);
+    const colors = [
+      'rgba(255, 240, 180, 1)',
+      'rgba(232, 197, 71, 1)',
+      'rgba(200, 168, 78, 1)',
+      'rgba(255, 215, 0, 1)',
+      'rgba(255, 255, 220, 1)',
+    ];
+    return {
+      x: x,
+      y: y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - (isBurst ? 1 : 0),
+      size: isBurst ? (1.5 + Math.random() * 3) : (0.5 + Math.random() * 2),
+      life: 1,
+      decay: isBurst ? (0.008 + Math.random() * 0.015) : (0.003 + Math.random() * 0.008),
+      color: colors[Math.floor(Math.random() * colors.length)],
+      twinkleSpeed: 0.05 + Math.random() * 0.1,
+      twinklePhase: Math.random() * Math.PI * 2,
+      gravity: isBurst ? 0.02 : 0,
+      trail: isBurst,
+    };
+  }
+
+  function animateSparkles() {
+    if (!sparklesRunning && sparkles.length === 0) return;
+
+    sCtx.clearRect(0, 0, sW, sH);
+
+    // Ambient spawning
+    if (sparklesRunning && sparkles.length < 120 && Math.random() < 0.3) {
+      sparkles.push(createSparkle(Math.random() * sW, Math.random() * sH, false));
+    }
+
+    for (let i = sparkles.length - 1; i >= 0; i--) {
+      const s = sparkles[i];
+      s.x += s.vx;
+      s.y += s.vy;
+      s.vy += s.gravity;
+      s.vx *= 0.99;
+      s.vy *= 0.99;
+      s.life -= s.decay;
+      s.twinklePhase += s.twinkleSpeed;
+
+      if (s.life <= 0) {
+        sparkles.splice(i, 1);
+        continue;
+      }
+
+      const twinkle = 0.5 + 0.5 * Math.sin(s.twinklePhase);
+      const alpha = s.life * twinkle;
+
+      // Draw glow
+      sCtx.save();
+      sCtx.globalAlpha = alpha * 0.3;
+      sCtx.fillStyle = s.color;
+      sCtx.beginPath();
+      sCtx.arc(s.x, s.y, s.size * 3, 0, Math.PI * 2);
+      sCtx.fill();
+
+      // Draw core
+      sCtx.globalAlpha = alpha;
+      sCtx.beginPath();
+      sCtx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      sCtx.fill();
+
+      // Draw cross sparkle for larger particles
+      if (s.size > 1.5) {
+        sCtx.globalAlpha = alpha * 0.6;
+        sCtx.strokeStyle = s.color;
+        sCtx.lineWidth = 0.5;
+        const len = s.size * 2 * twinkle;
+        sCtx.beginPath();
+        sCtx.moveTo(s.x - len, s.y);
+        sCtx.lineTo(s.x + len, s.y);
+        sCtx.moveTo(s.x, s.y - len);
+        sCtx.lineTo(s.x, s.y + len);
+        sCtx.stroke();
+      }
+
+      sCtx.restore();
+    }
+
+    requestAnimationFrame(animateSparkles);
   }
 
   // ═══════════════════════════════════════════════
@@ -273,26 +450,67 @@
   }
 
   // ═══════════════════════════════════════════════
-  // SECTION DIVIDER ANIMATION
+  // BACKGROUND MUSIC
   // ═══════════════════════════════════════════════
-  function initDividerAnimations() {
-    const dividers = document.querySelectorAll('.section-divider');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
+  function initMusic() {
+    const audio = document.getElementById('bg-music');
+    const toggle = document.getElementById('music-toggle');
+    if (!audio || !toggle) return;
 
-    dividers.forEach((d) => {
-      d.style.opacity = '0';
-      d.style.transition = 'opacity 1s ease';
-      observer.observe(d);
+    let isPlaying = false;
+    let userMuted = false;
+
+    function tryPlay() {
+      if (userMuted) return;
+      audio.volume = 0.3;
+      audio.play().then(() => {
+        toggle.classList.add('playing');
+        isPlaying = true;
+        // Remove all fallback listeners once playing
+        removeInteractionListeners();
+      }).catch(() => {
+        // Autoplay blocked — listeners will retry on interaction
+      });
+    }
+
+    function onUserInteraction() {
+      if (isPlaying || userMuted) return;
+      tryPlay();
+    }
+
+    function removeInteractionListeners() {
+      document.removeEventListener('click', onUserInteraction, true);
+      document.removeEventListener('touchstart', onUserInteraction, true);
+      document.removeEventListener('scroll', onUserInteraction, true);
+      document.removeEventListener('keydown', onUserInteraction, true);
+    }
+
+    // Listen for ANY user interaction to start music
+    document.addEventListener('click', onUserInteraction, true);
+    document.addEventListener('touchstart', onUserInteraction, true);
+    document.addEventListener('scroll', onUserInteraction, true);
+    document.addEventListener('keydown', onUserInteraction, true);
+
+    // Show toggle early and attempt autoplay immediately
+    toggle.classList.add('visible');
+    tryPlay();
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isPlaying) {
+        audio.pause();
+        toggle.classList.remove('playing');
+        isPlaying = false;
+        userMuted = true;
+        removeInteractionListeners();
+      } else {
+        userMuted = false;
+        audio.volume = 0.3;
+        audio.play().then(() => {
+          toggle.classList.add('playing');
+          isPlaying = true;
+        }).catch(() => {});
+      }
     });
   }
 
@@ -325,7 +543,7 @@
     startCountdown();
     initNavigation();
     initRSVP();
-    initDividerAnimations();
+    initMusic();
     initParallax();
   });
 })();
