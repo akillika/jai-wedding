@@ -368,7 +368,7 @@
   // ═══════════════════════════════════════════════
   // COUNTDOWN TIMER
   // ═══════════════════════════════════════════════
-  const WEDDING_DATE = new Date('2026-05-01T12:00:00+05:30');
+  const WEDDING_DATE = new Date('2026-04-26T12:00:00+05:30');
 
   function updateCountdown() {
     const now = new Date();
